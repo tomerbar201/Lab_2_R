@@ -116,9 +116,8 @@ webpage <- read_html(url)
 # The names are typically the first link within each list item (li)
 # in the unordered lists (ul) of the main content area.
 scientist_names <- webpage %>%
-  html_nodes("#mw-content-text .mw-parser-output ul > li > a:first-of-type") %>%
+  html_nodes(xpath = "//div[contains(@class, 'mw-parser-output')]/ul/li[contains(., ',')]/a[1]") %>%
   html_text()
-
 # Print the list of names
 print(scientist_names)
 
