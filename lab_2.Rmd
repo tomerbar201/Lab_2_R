@@ -153,6 +153,15 @@ print(scientist_names)
 
 [YOUR SOLUTION HERE]
 
+```{r}
+  content_text <- page %>%
+    html_element(".mw-parser-output") %>%
+    html_text2()
+  biography_text <- str_split(content_text, "\\nReferences\\n")[[1]][1]
+polished_output <- str_trim(biography_text)
+print(polished )
+```
+
 4.  Retrieve all the parsed scientists biographies into a vector called
     `bio`. Use your functions from (a.-c.). <br> **Note:** reading all
     biographies may take a few minutes. Some errors may occur also in
