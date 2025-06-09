@@ -2,47 +2,86 @@
 title: "52414 Lab 2: Text Wrangling, Sampling"
 author:
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 test
 
+### Submission Instructions
 
-### Submission Instructions  
-  
-This lab will be submitted in pairs (if you don't have a pair, please contact us).  
-**Important: your team's name must be `FamilyName1_Name1_and_FamilyName2_Name2`**.  
+This lab will be submitted in pairs (if you don't have a pair, please
+contact us).\
+**Important: your team's name must be
+`FamilyName1_Name1_and_FamilyName2_Name2`**.
 
-You should upload two files to moodle: this Rmd file (with your answers filled-in), together with the html file that is outputted automatically by knitr when you knit the Rmd. Anything else will be disregarded. In addition, please adhere to the following file format:    
-`Lab2_FamilyName1_Name1_and_FamilyName2_Name2.Rmd/html`      
+You should upload two files to moodle: this Rmd file (with your answers
+filled-in), together with the html file that is outputted automatically
+by knitr when you knit the Rmd. Anything else will be disregarded. In
+addition, please adhere to the following file format:\
+`Lab2_FamilyName1_Name1_and_FamilyName2_Name2.Rmd/html`
 
-**Deadline:** You should upload your solution by 25/6/2025. 
-
-
+**Deadline:** You should upload your solution by 25/6/2025.
 
 ### General Guidance
-- Your solution should be submitted as a full `Rmd` report integrating text, code, figures and tables. In addition, submit the resulting `html` file after knitting. 
-For each sub-question, describe first in the text of your solution what you're trying to do, then include the relevant code, 
-then the results (e.g. figures/tables) and **finally a textual description of them, even if there are no explicit instructions to explain your results in each sub-question**. 
 
-- In most questions the extraction/manipulation of relevant parts of the data-frame can be performed using commands from the `tidyverse` R packages (in particular the `dplyr` package) such as `head`, `arrange`, `aggregate`, `group-by`, `filter`, `select`, `summaries`, `mutate`, `order` etc.
+-   Your solution should be submitted as a full `Rmd` report integrating
+    text, code, figures and tables. In addition, submit the resulting
+    `html` file after knitting. For each sub-question, describe first in
+    the text of your solution what you're trying to do, then include the
+    relevant code, then the results (e.g. figures/tables) and **finally
+    a textual description of them, even if there are no explicit
+    instructions to explain your results in each sub-question**.
 
-- When displaying tables, show the relevant columns and rows with meaningful names, and describe the results. 
+-   In most questions the extraction/manipulation of relevant parts of
+    the data-frame can be performed using commands from the `tidyverse`
+    R packages (in particular the `dplyr` package) such as `head`,
+    `arrange`, `aggregate`, `group-by`, `filter`, `select`, `summaries`,
+    `mutate`, `order` etc.
 
-- When displaying figures, make sure that the figure is clear to the reader, axis ranges are appropriate, labels for the axis, title and different curves/bars are displayed clearly, font sizes are large enough, a legend is shown when needed etc. 
-Explain and describe in text what is shown in the figure. 
+-   When displaying tables, show the relevant columns and rows with
+    meaningful names, and describe the results.
 
-- In some questions it is not specified which commands you should use (e.g. "take column X and compute the median .." ) and you have to look at the data yourself in order to figure out what the exact commands to perform. For example, you need to decide how to extract data by continent or by income level. 
+-   When displaying figures, make sure that the figure is clear to the
+    reader, axis ranges are appropriate, labels for the axis, title and
+    different curves/bars are displayed clearly, font sizes are large
+    enough, a legend is shown when needed etc. Explain and describe in
+    text what is shown in the figure.
 
-- Sometimes data may be missing (e.g. `NA`). Make sure that all your calculations (e.g. taking the maximum, average, correlation etc.)
-take this into account. Specifically, the calculations should ignore the missing values to allow us to compute the desired results for the rest of the values (for example, using the option `na.rm = TRUE`). 
+-   In some questions it is not specified which commands you should use
+    (e.g. "take column X and compute the median .." ) and you have to
+    look at the data yourself in order to figure out what the exact
+    commands to perform. For example, you need to decide how to extract
+    data by continent or by income level.
 
-- Chat GPT and it’s friends the language models are great tools! But note that they can sometimes mislead and make you go down a very sub-optimal way. We recommend thinking about what you want, considering other offers and researching independently. **Don’t use them blindly**.
+-   Sometimes data may be missing (e.g. `NA`). Make sure that all your
+    calculations (e.g. taking the maximum, average, correlation etc.)
+    take this into account. Specifically, the calculations should ignore
+    the missing values to allow us to compute the desired results for
+    the rest of the values (for example, using the option
+    `na.rm = TRUE`).
 
-- Make sure your answers are clear and easy to follow—*this could reduce your points*. For written explanations, keep them short and simple—about 2 to 3 sentences per graph. Code should also be concise: functions should be no longer than 15 lines (if longer, split them to smaller functions), and each code chunk should include some process.  If your work chunk many steps, break them up into separate, organized chunks. For more guidance, check the notes in the "Labs - Common mistakes" file provided in the model.
+-   Chat GPT and it’s friends the language models are great tools! But
+    note that they can sometimes mislead and make you go down a very
+    sub-optimal way. We recommend thinking about what you want,
+    considering other offers and researching independently. **Don’t use
+    them blindly**.
 
-- **Grading:** There are $14$ questions overall. Each sub-question is worth $7$ points for the lab grade. Two additional points are given for correct file names and formats. The questions vary in length and difficulty level. It is recommended to start with the simpler and shorter questions. 
+-   Make sure your answers are clear and easy to follow—*this could
+    reduce your points*. For written explanations, keep them short and
+    simple—about 2 to 3 sentences per graph. Code should also be
+    concise: functions should be no longer than 15 lines (if longer,
+    split them to smaller functions), and each code chunk should include
+    some process. If your work chunk many steps, break them up into
+    separate, organized chunks. For more guidance, check the notes in
+    the "Labs - Common mistakes" file provided in the model.
 
-
+-   **Grading:** There are $14$ questions overall. Each sub-question is
+    worth $7$ points for the lab grade. Two additional points are given
+    for correct file names and formats. The questions vary in length and
+    difficulty level. It is recommended to start with the simpler and
+    shorter questions.
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE, results = 'hide'}
 library(ggplot2)
@@ -55,147 +94,193 @@ options(scipen=999)
 
 <br>
 
+**Background:** The lab will focus on text analysis, sampling and
+inference. We will extract text from wikipedia describing notable female
+scientists from the 20th century.
 
-**Background:** The lab will focus on text analysis, sampling and inference. We will extract text from wikipedia describing 
-notable female scientists from the 20th century. 
+1.  Use the library `rvest` to scrape all the **names** of notable
+    female scientists of the 20th century from
+    [here](https://en.wikipedia.org/wiki/List_of_female_scientists_in_the_20th_century).
+    For ease of exctraction, you can extract only scientists with known
+    birth or death year. You should end up with a `names` vector of at
+    least `488` elements, where each element is a name of a different
+    female scientist.
 
+```{r, echo = FALSE, warning=FALSE, message=FALSE, results = 'hide'}
+url <- "https://en.wikipedia.org/wiki/List_of_female_scientists_in_the_20th_century"
 
-1. Use the library `rvest` to scrape all the **names** of notable female scientists of the 20th century from 
-[here](https://en.wikipedia.org/wiki/List_of_female_scientists_in_the_20th_century). For ease of exctraction, you can extract only scientists with known birth or death year. 
-You should end up with a `names` vector of at least `488` elements, where each element is a name of a different female scientist. 
+# Read the HTML content from the page
+webpage <- read_html(url)
 
+# Scrape the scientist names
+# The names are typically the first link within each list item (li)
+# in the unordered lists (ul) of the main content area.
+scientist_names <- webpage %>%
+  html_nodes("#mw-content-text .mw-parser-output ul > li > a:first-of-type") %>%
+  html_text()
 
-testtest
-testtest
+# Print the list of names
+print(scientist_names)
 
+```
 
-
-
-
-
-
-
-
-
-
-
-[YOUR SOLUTION HERE]
-
-
-2. When you click on each scientist name, you are transferred into a different url containing text about this scientist. 
-For example, clicking on the first name `Katharine Bartlet`, brings you [here](https://en.wikipedia.org/wiki/Katharine_Bartlett).
-Parse the data and create a new vector variable `names_urls` containing the url for each scientist. 
-You may need to modify the names to get the exact urls. 
-You don't have to be perfect here, and it is enough to get the correct urls for at least $400$ out of the $488$ scientists.   
-
-[YOUR SOLUTION HERE]
-
-
-3. Next we would like to retrieve the actual texts about each scientist. 
-Write a function called `wiki_text_parser` that given a specific scientist's unparsed html page text as input, 
-outputs the parsed biographical text as a string. <br>
-The text should start at the line below the line `From Wikipedia, the free encyclopedia` in the wikipedia page. <br>
-The text should end right before the `References` of the wikipedia page. See for example the highlighted text below. <br>
-Run the function on the first name `Katharine Bartlet` and verify that the biographical text is extracted correctly. <br>
-**Hint:** You can look at occurances of the scientist name
-
-
+2.  When you click on each scientist name, you are transferred into a
+    different url containing text about this scientist. For example,
+    clicking on the first name `Katharine Bartlet`, brings you
+    [here](https://en.wikipedia.org/wiki/Katharine_Bartlett). Parse the
+    data and create a new vector variable `names_urls` containing the
+    url for each scientist. You may need to modify the names to get the
+    exact urls. You don't have to be perfect here, and it is enough to
+    get the correct urls for at least $400$ out of the $488$ scientists.
 
 [YOUR SOLUTION HERE]
 
-
-4. Retrieve all the parsed scientists biographies into a vector called `bio`. Use your functions from (a.-c.). <br>
-**Note:** reading all biographies may take a few minutes. 
-Some errors may occur also in terms of retrive all the data and pages that dont load, but make sure that your pages urls (part b.) match and retrieve 
-successfully at least **two thirds** out of the $488$ biographies. <br>
-**Hint:** You can use the `try` command to run another command such that if the command fail the program continues and is not stopped. 
-
-[YOUR SOLUTION HERE]
-
-
-
-
-5. Find the astronomer whose son was a distinguished statistician.  List all the titles of her publications in the jounral `Nature`.
+3.  Next we would like to retrieve the actual texts about each
+    scientist. Write a function called `wiki_text_parser` that given a
+    specific scientist's unparsed html page text as input, outputs the
+    parsed biographical text as a string. <br> The text should start at
+    the line below the line `From Wikipedia, the free encyclopedia` in
+    the wikipedia page. <br> The text should end right before the
+    `References` of the wikipedia page. See for example the highlighted
+    text below. <br> Run the function on the first name
+    `Katharine Bartlet` and verify that the biographical text is
+    extracted correctly. <br> **Hint:** You can look at occurances of
+    the scientist name
 
 [YOUR SOLUTION HERE]
 
-
-6. Retrieve all words appearing in any of the biographies and compute their frequencies. (treat all the texts of the biographies of the scientists as one large document and compute the frequecnies in this document). <br>
-Remove all common stop words (use the command `stop_words` from the *tidytext* package), and also all hashtages ('words' starting with '#') and twitter user names ('words' starting with '@'). <br>
-Display in a `word-cloud` the top-100 (most-common) remaining words using the computed frequencies. 
-
-
-[YOUR SOLUTION HERE]
-
-
-7. Compute the frequency $n_i$ of each of the $26$ letters in the English alphabet. <br>
-Consider uppercase and lowercase as the same letter. <br> 
-Plot the sorted frequencies after normalization $p_i = n_i / n$ where $n = \sum_{i=1}^{26}$ it the total number of english letters, in a bar-plot. 
+4.  Retrieve all the parsed scientists biographies into a vector called
+    `bio`. Use your functions from (a.-c.). <br> **Note:** reading all
+    biographies may take a few minutes. Some errors may occur also in
+    terms of retrive all the data and pages that dont load, but make
+    sure that your pages urls (part b.) match and retrieve successfully
+    at least **two thirds** out of the $488$ biographies. <br> **Hint:**
+    You can use the `try` command to run another command such that if
+    the command fail the program continues and is not stopped.
 
 [YOUR SOLUTION HERE]
 
-
-8. Compute the frequencies of consecutive **pairs** of letters for all $26^2$ ordered pairs of English letters in the biographies text. <br>
-That is, create a $26 \times 26$ table where for each two letters $i$ and $j$ the entry $(i,j)$ contains $n_{ij}$, the number of occuracnes of the
-two letters appearing consecutively. Count only pairs of letters apearning in the same word. <br>
-For example, if the biographies text was: `Angela Merkel` then the count for `el` in your table should be 2, the count for `ng` should be 1, 
-and the count for `am` should be 0. <br>
-What is the *most common* pair of letters? what is the *least common* pair?  
+5.  Find the astronomer whose son was a distinguished statistician. List
+    all the titles of her publications in the jounral `Nature`.
 
 [YOUR SOLUTION HERE]
 
-
-
-9. Let $p_a$ be the actual frequency of the letter `a` in English text, and assume that the true value is the one calculated in 
-qu. (8). <br>
-For each scientist $s$, consider $\hat{p_a}(s)$ the estimator of this frequency, obtained as the frequency of the letter `a` in the biography text of this scientist only out of all english letters in this text. (That is, we obtain hundreds of estimators for the same parameter) <br>
-Compute these estimators and show them in a histogram with $50$ bins. Show also the true value $p_a$ on the plot. <br> 
-Plot the absolute error $|\hat{p_a}(s)-p_a|$ vs. the length of the text for each scientist denoted $l(s)$. What is your conclusion? <br>
-Compute and plot on the same figure the theoretical standard deviation of $\hat{p_a}(s)$ assuming it is based on a random text with $l(s)$ i.i.d. letters, each has a probability of $p_a$ to be `"a"`. 
-Explain your results. <br> 
-**Note**: The actual standard deviation is a complicated function of the text length for English text since letters written in the text are not independent. Nevertheless, the i.i.d. model gives a useful guideline. 
-
+6.  Retrieve all words appearing in any of the biographies and compute
+    their frequencies. (treat all the texts of the biographies of the
+    scientists as one large document and compute the frequecnies in this
+    document). <br> Remove all common stop words (use the command
+    `stop_words` from the *tidytext* package), and also all hashtages
+    ('words' starting with '\#') and twitter user names ('words'
+    starting with '\@'). <br> Display in a `word-cloud` the top-100
+    (most-common) remaining words using the computed frequencies.
 
 [YOUR SOLUTION HERE]
 
-
-10. Simulate $10,000$ words of length $4$ as follows: <br>
-Sample the four characters of the word as i.i.d. random varaiables from the categorical distribution with the values being the $26$ English letters and the probabilities being the $26$ letter frequencies $p_i$ computed in qu. (8). <br>
-Next, read the list of English words in the dictionary from the file [words_alpha](https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt). <br>
-What fraction of the words you have simulated are actual English words according to this dictrionary?
-
-
-[YOUR SOLUTION HERE]
-
-
-11. Repeat the above question, but this time simulate words as follows:  <br>
-Define $p_{ij}$ to be the conditional probability of letter $j$ to appear after letter $i$, calculated as $p_{ij} = n_{ij} / \sum_{k=1}^{26} n_{ik}$, where the $n_{ij}$'s are computed in qu. (9). <br>
-Let the characters of the words be $c_1,c_2,c_3,c_4$. $c_1$ is simulated as before. <br>
-Next, $c_2$ is simulated *conditional* on $c_1$ with probability: $Prob(c_2 = j | c_1 = i) = p_{ij}$. <br>
-Similarly,  $c_3$ is simulated *conditional* on $c_1$ with probability: $Prob(c_3 = j | c_2 = i) = p_{ij}$ <br>
-and finally  $c_4$ is simulated *conditional* on $c_1$ with probability: $Prob(c_4 = j | c_3 = i) = p_{ij}$. <br>
-What fraction of simulated words match actual English words? Which of the two random models (from this and the previous question) is more similar to true English text? why do you think this is the case? 
+7.  Compute the frequency $n_i$ of each of the $26$ letters in the
+    English alphabet. <br> Consider uppercase and lowercase as the same
+    letter. <br> Plot the sorted frequencies after normalization
+    $p_i = n_i / n$ where $n = \sum_{i=1}^{26}$ it the total number of
+    english letters, in a bar-plot.
 
 [YOUR SOLUTION HERE]
 
-
-12. Suppose that a Monkey types a sentence with **two** words by typing randomly one of the words from the biographies, and then typing another one independently *with replacement*, and where the probability of each word is proportional to its frequency in the biographies calculated in qu. (7). <br> 
-What is the probability that the same word will be typed twice? Answer using a Monte-carlo simulation with at least $10000$ random word-pairs. Can you calculate the probability exactly?
-
-
-[YOUR SOLUTION HERE]
-
-
-13. Suppose that a Monkey types a sentence with eight words by typing randomly one of the *words*: `Maria`, `Skłodowska`, `Curie`,  `Pierre`,  `Curie`, `Irène`, `Joliot` and `Curie`  *without replacement* (the word `Curie` appears three times). <br>
-What is the probability that the Monkey will type a sentence with the scientists names `Maria Skłodowska Curie`, `Pierre Curie` and `Irène Joliot Curie` appearing in it? (the three scientists names can appear in any order, but the name of each scientist should appear exactly as listed here, i.e. family name appearning last)? <br>
-Perform a Monte-carlo simulation with at least $50000$ random sentences to estimate the probability. Can you calculate the probability exactly? When answering, please ignore spaces between words.
-
+8.  Compute the frequencies of consecutive **pairs** of letters for all
+    $26^2$ ordered pairs of English letters in the biographies text.
+    <br> That is, create a $26 \times 26$ table where for each two
+    letters $i$ and $j$ the entry $(i,j)$ contains $n_{ij}$, the number
+    of occuracnes of the two letters appearing consecutively. Count only
+    pairs of letters apearning in the same word. <br> For example, if
+    the biographies text was: `Angela Merkel` then the count for `el` in
+    your table should be 2, the count for `ng` should be 1, and the
+    count for `am` should be 0. <br> What is the *most common* pair of
+    letters? what is the *least common* pair?
 
 [YOUR SOLUTION HERE]
 
+9.  Let $p_a$ be the actual frequency of the letter `a` in English text,
+    and assume that the true value is the one calculated in qu. (8).
+    <br> For each scientist $s$, consider $\hat{p_a}(s)$ the estimator
+    of this frequency, obtained as the frequency of the letter `a` in
+    the biography text of this scientist only out of all english letters
+    in this text. (That is, we obtain hundreds of estimators for the
+    same parameter) <br> Compute these estimators and show them in a
+    histogram with $50$ bins. Show also the true value $p_a$ on the
+    plot. <br> Plot the absolute error $|\hat{p_a}(s)-p_a|$ vs. the
+    length of the text for each scientist denoted $l(s)$. What is your
+    conclusion? <br> Compute and plot on the same figure the theoretical
+    standard deviation of $\hat{p_a}(s)$ assuming it is based on a
+    random text with $l(s)$ i.i.d. letters, each has a probability of
+    $p_a$ to be `"a"`. Explain your results. <br> **Note**: The actual
+    standard deviation is a complicated function of the text length for
+    English text since letters written in the text are not independent.
+    Nevertheless, the i.i.d. model gives a useful guideline.
 
-14. What is the probability that a Monkey typing randomly one of the $26$ English *letters* (i.e. using a *uniform distribution*) one after the other (with replacement) will type on her first attempt the name `Rosalind Franklin`? can you estimate it by sampling? explain (ignore spaces and upper/lower case here too).  <br>
-What will be the probability if the Monkey types letters with probability proportional to their frequencies as computed from the text in qu. (8)? <br>
-**Hint:** It is easier to work with log-probabilities
+[YOUR SOLUTION HERE]
+
+10. Simulate $10,000$ words of length $4$ as follows: <br> Sample the
+    four characters of the word as i.i.d. random varaiables from the
+    categorical distribution with the values being the $26$ English
+    letters and the probabilities being the $26$ letter frequencies
+    $p_i$ computed in qu. (8). <br> Next, read the list of English words
+    in the dictionary from the file
+    [words_alpha](https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt).
+    <br> What fraction of the words you have simulated are actual
+    English words according to this dictrionary?
+
+[YOUR SOLUTION HERE]
+
+11. Repeat the above question, but this time simulate words as follows:
+    <br> Define $p_{ij}$ to be the conditional probability of letter $j$
+    to appear after letter $i$, calculated as
+    $p_{ij} = n_{ij} / \sum_{k=1}^{26} n_{ik}$, where the $n_{ij}$'s are
+    computed in qu. (9). <br> Let the characters of the words be
+    $c_1,c_2,c_3,c_4$. $c_1$ is simulated as before. <br> Next, $c_2$ is
+    simulated *conditional* on $c_1$ with probability:
+    $Prob(c_2 = j | c_1 = i) = p_{ij}$. <br> Similarly, $c_3$ is
+    simulated *conditional* on $c_1$ with probability:
+    $Prob(c_3 = j | c_2 = i) = p_{ij}$ <br> and finally $c_4$ is
+    simulated *conditional* on $c_1$ with probability:
+    $Prob(c_4 = j | c_3 = i) = p_{ij}$. <br> What fraction of simulated
+    words match actual English words? Which of the two random models
+    (from this and the previous question) is more similar to true
+    English text? why do you think this is the case?
+
+[YOUR SOLUTION HERE]
+
+12. Suppose that a Monkey types a sentence with **two** words by typing
+    randomly one of the words from the biographies, and then typing
+    another one independently *with replacement*, and where the
+    probability of each word is proportional to its frequency in the
+    biographies calculated in qu. (7). <br> What is the probability that
+    the same word will be typed twice? Answer using a Monte-carlo
+    simulation with at least $10000$ random word-pairs. Can you
+    calculate the probability exactly?
+
+[YOUR SOLUTION HERE]
+
+13. Suppose that a Monkey types a sentence with eight words by typing
+    randomly one of the *words*: `Maria`, `Skłodowska`, `Curie`,
+    `Pierre`, `Curie`, `Irène`, `Joliot` and `Curie` *without
+    replacement* (the word `Curie` appears three times). <br> What is
+    the probability that the Monkey will type a sentence with the
+    scientists names `Maria Skłodowska Curie`, `Pierre Curie` and
+    `Irène Joliot Curie` appearing in it? (the three scientists names
+    can appear in any order, but the name of each scientist should
+    appear exactly as listed here, i.e. family name appearning last)?
+    <br> Perform a Monte-carlo simulation with at least $50000$ random
+    sentences to estimate the probability. Can you calculate the
+    probability exactly? When answering, please ignore spaces between
+    words.
+
+[YOUR SOLUTION HERE]
+
+14. What is the probability that a Monkey typing randomly one of the
+    $26$ English *letters* (i.e. using a *uniform distribution*) one
+    after the other (with replacement) will type on her first attempt
+    the name `Rosalind Franklin`? can you estimate it by sampling?
+    explain (ignore spaces and upper/lower case here too). <br> What
+    will be the probability if the Monkey types letters with probability
+    proportional to their frequencies as computed from the text in qu.
+    (8)? <br> **Hint:** It is easier to work with log-probabilities
 
 [YOUR SOLUTION HERE]
