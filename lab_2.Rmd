@@ -134,9 +134,21 @@ print(scientist_names)
     exact urls. You don't have to be perfect here, and it is enough to
     get the correct urls for at least $400$ out of the $488$ scientists.
 
+## Question 2
+
+```         
+AS we requested to modifIed the names to be valid to extract the URL
+by replacing the blank with "\_" and then we succeeded to extract
+each URL.
+```
+
 ```{r, echo = FALSE, warning=FALSE, message=FALSE, results = 'hide'}
 
+wiki_titles <- gsub(" ", "_", scientist_names)
 
+names_urls <- paste0("https://en.wikipedia.org/wiki/", wiki_titles)
+
+head(names_urls,400)
 ```
 
 3.  Next we would like to retrieve the actual texts about each
@@ -151,15 +163,15 @@ print(scientist_names)
     extracted correctly. <br> **Hint:** You can look at occurances of
     the scientist name
 
-[YOUR SOLUTION HERE]
-
 ```{r}
+page <- read_html("https://en.wikipedia.org/wiki/Katharine_Bartlett")
   content_text <- page %>%
     html_element(".mw-parser-output") %>%
     html_text2()
   biography_text <- str_split(content_text, "\\nReferences\\n")[[1]][1]
 polished_output <- str_trim(biography_text)
-print(polished )
+
+print(polished_output)
 ```
 
 4.  Retrieve all the parsed scientists biographies into a vector called
