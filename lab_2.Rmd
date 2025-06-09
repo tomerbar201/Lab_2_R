@@ -106,19 +106,21 @@ scientists from the 20th century.
     least `488` elements, where each element is a name of a different
     female scientist.
 
+## question 1:
+
+As requsted, we used the rvest to extract the html content. however,
+instead of extracting via birth year or death year, we chose to look for
+elements that are li or ul within the "mw-parser-output" class. this
+class seems to contain the main list of the wiki page. then we also
+whitelisted elements that contain "," (instead of birth year) so it will
+exclude titles.
+
 ```{r, echo = FALSE, warning=FALSE, message=FALSE, results = 'hide'}
 url <- "https://en.wikipedia.org/wiki/List_of_female_scientists_in_the_20th_century"
-
-# Read the HTML content from the page
 webpage <- read_html(url)
-
-# Scrape the scientist names
-# The names are typically the first link within each list item (li)
-# in the unordered lists (ul) of the main content area.
 scientist_names <- webpage %>%
   html_nodes(xpath = "//div[contains(@class, 'mw-parser-output')]/ul/li[contains(., ',')]/a[1]") %>%
   html_text()
-# Print the list of names
 print(scientist_names)
 
 ```
@@ -132,7 +134,10 @@ print(scientist_names)
     exact urls. You don't have to be perfect here, and it is enough to
     get the correct urls for at least $400$ out of the $488$ scientists.
 
-[YOUR SOLUTION HERE]
+```{r, echo = FALSE, warning=FALSE, message=FALSE, results = 'hide'}
+
+
+```
 
 3.  Next we would like to retrieve the actual texts about each
     scientist. Write a function called `wiki_text_parser` that given a
