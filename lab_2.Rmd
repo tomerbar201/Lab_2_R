@@ -121,7 +121,6 @@ webpage <- read_html(url)
 scientist_names <- webpage %>%
   html_nodes(xpath = "//div[contains(@class, 'mw-parser-output')]/ul/li[contains(., ',')]/a[1]") %>%
   html_text()
-print(scientist_names)
 
 ```
 
@@ -148,7 +147,7 @@ wiki_titles <- gsub(" ", "_", scientist_names)
 
 names_urls <- paste0("https://en.wikipedia.org/wiki/", wiki_titles)
 
-head(names_urls,400)
+
 ```
 
 3.  Next we would like to retrieve the actual texts about each
@@ -163,6 +162,8 @@ head(names_urls,400)
     extracted correctly. <br> **Hint:** You can look at occurances of
     the scientist name
 
+    ## Question 3
+
 ```{r}
 page <- read_html("https://en.wikipedia.org/wiki/Katharine_Bartlett")
   content_text <- page %>%
@@ -170,8 +171,6 @@ page <- read_html("https://en.wikipedia.org/wiki/Katharine_Bartlett")
     html_text2()
   biography_text <- str_split(content_text, "\\nReferences\\n")[[1]][1]
 polished_output <- str_trim(biography_text)
-
-print(polished_output)
 ```
 
 4.  Retrieve all the parsed scientists biographies into a vector called
@@ -183,10 +182,9 @@ print(polished_output)
     You can use the `try` command to run another command such that if
     the command fail the program continues and is not stopped.
 
-[YOUR SOLUTION HERE]
+## Question 4
 
 ```{r}
-
 wiki_text_parser <- function(url) {
   tryCatch({
     page <- read_html(url)
@@ -209,7 +207,11 @@ wiki_text_parser <- function(url) {
 }
 
 bio <- sapply(names_urls, wiki_text_parser)
+print("success scaped pages: ")
 print(length(bio))
+
+scraped_data <- data.frame(name = names(bio), biography = bio)
+write.csv(scraped_data, "biographies.csv", row.names = FALSE)
 ```
 
 5.  Find the astronomer whose son was a distinguished statistician. List
